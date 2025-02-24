@@ -1,31 +1,32 @@
-Autoclicker v0
-Para usar este código necesitarás instalar las siguientes dependencias:
+"""
+=== AUTO-CLICKER PYNPUT EDICIÓN FINAL ===
+Requisitos instalación:
+1. Bibliotecas Python:
+   pip install pynput pyautogui
 
-bash
-Copy
-pip install keyboard pyautogui
-Características principales:
+2. Dependencias del sistema (Linux):
+   sudo apt-get install xauth libxext-dev libxtst-dev python3-xlib
 
-Activa/desactiva con la barra espaciadora
+3. Permisos X Server (ejecutar antes de iniciar):
+   xhost +local:
+   export DISPLAY=:0
 
-Controla la velocidad con las flechas arriba/abajo
+Explicación técnica:
+- PyAutoGUI: Simula clicks del mouse (aunque aquí usamos pynput para mejor integración)
+- pynput: Biblioteca de bajo nivel para controlar/monitorear dispositivos de entrada
+   * Keyboard.Listener: Captura eventos globales de teclado sin root
+   * Mouse.Controller: Controla el mouse y sus eventos
+   * Button: Enumeración de botones del mouse
 
-Click izquierdo automático
+Configuración clave:
+- Sistema de hilos separados para no bloquear eventos
+- Intervalo dinámico con límites de 10ms a 2000ms
+- Mecanismo de seguridad con tecla ESC para salida controlada
+- Global flags para sincronización entre hilos
 
-Intervalo ajustable desde 10ms hasta 2000ms
-
-Feedback visual en la consola
-
-Notas importantes:
-
-El programa necesita permisos de administrador para controlar el teclado y mouse
-
-Para detenerlo completamente usa Ctrl+C en la consola
-
-El intervalo mínimo está establecido en 10ms (100 clicks/segundo)
-
-PyAutoGUI usa las coordenadas actuales del mouse para hacer los clicks
-
-Algunos sistemas pueden requerir ajustes adicionales para permitir el control del mouse
-
-El código funciona creando un hilo secundario que maneja los clicks mientras el hilo principal gestiona los eventos del teclado y la interfaz de usuario.
+Funcionamiento general:
+1. Listener de teclado corre en segundo plano
+2. Hilo de clicks opera cuando el flag está activo
+3. Bucle principal solo espera la tecla de salida
+4. Todos los componentes se detienen limpiamente al salir
+"""
