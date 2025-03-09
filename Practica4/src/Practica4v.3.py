@@ -17,7 +17,7 @@ Explicación técnica:
    * Keyboard.Listener: Captura eventos globales de teclado sin root
    * Mouse.Controller: Controla el mouse y sus eventos
    * Button: Enumeración de botones del mouse
-
+    
 Configuración clave:
 - Sistema de hilos separados para no bloquear eventos
 - Intervalo dinámico con límites de 10ms a 2000ms
@@ -26,7 +26,7 @@ Configuración clave:
 
 Funcionamiento general:
 1. Listener de teclado corre en segundo plano
-2. Hilo de clicks opera cuando el flag está activo
+2. Hilo de clicks opera cuando el flag está activo 
 3. Bucle principal solo espera la tecla de salida
 4. Todos los componentes se detienen limpiamente al salir
 """
@@ -61,7 +61,7 @@ def change_interval(direction):
 
 def on_press(key):
     try:
-        if key == keyboard.Key.space:
+        if key == keyboard.Key.shift_r: #define la tecla usada en el toggle off/on del click
             toggle_clicking()
         elif key == keyboard.Key.up:
             change_interval("up")
